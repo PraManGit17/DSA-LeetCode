@@ -1,30 +1,22 @@
+#include <unordered_map>
+
 class Solution
 {
 public:
     vector<int> twoSum(vector<int> &nums, int target)
     {
+        unordered_map<int, int> numToindex;
 
-        int i, j, sum = 0, flag = 0;
-
-        cout << "Entered Array :\n";
-        for (int i = 0; i < nums.size(); ++i)
+        for(int i=0;i<nums.size();i++)
         {
-            cout << " " << nums[i];
-        }
+            int complement = target - nums[i];
 
-        i = 0;
-        while (i < nums.size())
-        {
-            for (j = i + 1; j < nums.size(); j++)
+            if(numToindex.find(complement)!=numToindex.end())
             {
-                sum = nums[i] + nums[j];
-
-                if (sum == target)
-                {
-                    return {i, j};
-                }
+                return {numToindex[complement], i};
             }
-            i++;
+
+            numToindex[nums[i]]=i;
         }
 
         return {-1, -1};
