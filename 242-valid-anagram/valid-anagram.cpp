@@ -3,28 +3,25 @@ class Solution
 public:
   bool isAnagram(string s, string t)
   {
-    unordered_map<char, int> map1;
-    unordered_map<char, int> map2;
 
     if (s.size() != t.size())
     {
       return false;
     }
-    else
-    {
-      for (int i = 0; i < s.size(); i++)
-      {
-        map1[s[i]]++;
-        map2[t[i]]++;
-      }
 
-  
-      for(int i=0; i < s.size(); i++)
+    int count[26] = {0};
+
+    for (int i = 0; i < s.length(); i++)
+    {
+      count[s[i] - 'a']++;
+      count[t[i] - 'a']--;
+    }
+
+    for (int i = 0; i < s.length(); i++)
+    {
+      if (count[s[i] - 'a'] != 0)
       {
-        if(map1[s[i]] != map2[s[i]])
-        {
-          return false;
-        }
+        return false;
       }
     }
 
