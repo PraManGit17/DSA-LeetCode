@@ -19,10 +19,6 @@ public:
 
   int sumRange(int left, int right)
   {
-    if (left < 0 || right >= prefix.size())
-    {
-      return -1;
-    }
 
     if (left == 0)
     {
