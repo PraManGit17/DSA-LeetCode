@@ -1,38 +1,27 @@
-
-class Solution
-{
+class Solution {
 public:
-  void initialize(stack<int> &st, vector<int> &nums2)
-  {
-    for (int i = 0; i < nums2.size(); i++)
-    {
-      st.push(nums2[i]);
-    }
-  }
+    vector<int> nextGreaterElement(vector<int>& nums1, vector<int>& nums2) {
+        unordered_map<int,int> next_greater;
+        stack<int> st;
 
-  vector<int> nextGreaterElement(vector<int> &nums1, vector<int> &nums2)
-  {
-    stack<int> st;
-    vector<int> result;
-
-    initialize(st, nums2);
-
-
-    for (int i = 0; i < nums1.size(); i++)
-    {
-      int nxt_greater = -1;
-      while (nums1[i] != st.top() && !st.empty())
-      {
-        if (st.top() > nums1[i])
-        {
-          nxt_greater = st.top();
+        for(int num : nums2) {
+            while(!st.empty() && st.top() < num) {
+                next_greater[st.top()] = num;
+                st.pop();
+            }
+            st.push(num);
         }
-        st.pop();
-      }
-      result.push_back(nxt_greater);
-      initialize(st, nums2);
-    }
 
-    return result;
-  }
+        while(!st.empty()) {
+            next_greater[st.top()] = -1;
+            st.pop();
+        }
+
+        vector<int> result;
+        for(int num : nums1) {
+            result.push_back(next_greater[num]);
+        }
+
+        return result;
+    }
 };
