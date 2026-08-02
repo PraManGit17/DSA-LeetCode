@@ -1,63 +1,34 @@
+class MinStack {
 
-class MinStack
-{
-public:
-  vector<int> stack;
-  vector<int> minstack;
+    vector<int> st;
+    vector<int> Min_st;
 
-  MinStack()
-  {
-    //
-  }
+  public:
+    MinStack() {    
+    }
+    
+    void push(int value) {
+      st.push_back(value);
 
-  void push(int val)
-  {
-    stack.push_back(val);
-
-    if (minstack.empty() || val <= minstack.back())
-    {
-      minstack.push_back(val);
+      if(Min_st.empty())
+      {
+        Min_st.push_back(value);
+      }
+      else{
+        Min_st.push_back(min(value, Min_st.back()));
+      }
     }
-    else
-    {
-      minstack.push_back(minstack.back());
+    
+    void pop() {
+     st.pop_back();
+     Min_st.pop_back();   
     }
-  }
-
-  void pop()
-  {
-    if (stack.size() == 0)
-    {
-      return;
+    
+    int top() {
+     return st.back();   
     }
-    else
-    {
-      stack.pop_back();
-      minstack.pop_back();
+    
+    int getMin() {
+     return Min_st.back();   
     }
-  }
-
-  int top()
-  {
-    if (stack.size() == 0)
-    {
-      return -1;
-    }
-    else
-    {
-      return stack.back();
-    }
-  }
-
-  int getMin()
-  {
-    if (stack.size() == 0)
-    {
-      return -1;
-    }
-    else
-    {
-      return minstack.back();
-    }
-  }
 };
